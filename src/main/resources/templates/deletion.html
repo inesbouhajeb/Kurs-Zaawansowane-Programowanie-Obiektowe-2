@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuwanie</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+<h2>Czy na pewno chcesz usunąć produkt?</h2>
+<h5 style="color: red">Ponowne jego odzyskanie nie będzie możliwe!</h5>
+<form action="/deleting" method="post" >
+    <input type="submit" class="btn btn-primary" value="Tak">
+
+    <!--/*@thymesVar id="indexOfProd" type="String"*/-->
+    <!--Problem ze zmiennymi dodawanymi przez model: https://stackoverflow.com/questions/38710585/spring-boot-thymeleaf-in-intellij-cannot-resolve-vars-->
+
+    <input class="form-control"
+           type="hidden"
+           th:value="${indexOfProd}" id="index" name="index"  /> <!--indexOfProd cant be resolved-->
+    <a class="btn btn-primary" role="button" href="/">Nie</a>
+</form>
+</body>
+</html>
