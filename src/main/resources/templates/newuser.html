@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj nowego pracownika</title>
+</head>
+<body>
+<form th:action="@{/savecategory}" th:object="${category}" method="post">
+    <input type="text" th:field="*{name}" placeholder="Nazwa"><br>
+    <button type="submit">Zapisz</button>
+</form>
+
+<!--
+<form action="/">
+    <button type="submit">Wróć</button>
+</form>
+-->
+<a href="/">Anuluj</a>
+
+</body>
+</html>
