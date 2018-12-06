@@ -19,9 +19,9 @@
     <label>Ilość: </label>
     <input type="number" th:field="*{quantity}"/> <br>
     <label>Gatunek: </label>
-    <input type="text" th:field="*{grade}"/> <br>
+    <input required type="text" th:field="*{grade}"/> <br>
     <label>Tolerancja: </label>
-    <input type="text" th:field="*{tolerance}"/> <br>
+    <input required type="text" th:field="*{tolerance}"/> <br>
     <select th:field="*{user}">
         <!--/*@thymesVar id="user" type="pl.ines.shipcompany.model.User"*/-->
         <!--/*@thymesVar id="users" type="java.util.List"*/-->
@@ -31,7 +31,7 @@
     <button type="submit" class="btn btn-primary">Dodaj</button>
 </form>
 <ul></ul>
-<form action="/" style="margin: auto; width: 300px">
+<form th:action="@{/}" style="margin: auto; width: 300px">
     <button type="submit" class="btn btn-primary" >Wróć</button>
 </form>
 </body>

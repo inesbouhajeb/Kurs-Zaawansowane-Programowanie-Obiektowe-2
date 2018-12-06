@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Logowanie</title>
@@ -7,9 +7,11 @@
 <body>
 <div style="width: 500px; margin: auto; margin-top: 300px; text-align:center">
     <h1>LOGOWANIE</h1>
-    <form action="/login" method="post">
-        Login:<br/>        <input type="text" name="username"/><br/>
-        Hasło:<br/>        <input type="password" name="password"/><br/>
+    <form th:action="@{/login}" method="post">
+        Login:<br/>
+        <input type="text" name="username"/><br/>
+        Hasło:<br/>
+        <input type="password" name="password"/><br/>
         <input type="submit" value="Zaloguj"/>
     </form></div>
 

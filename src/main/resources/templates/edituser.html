@@ -10,7 +10,7 @@ Wybierz użytkownika do edycji: <br>
 
 
 
-<form action="/editinguser" method="post" th:object="${editUser}">
+<form th:action="@{/editinguser}" method="post" th:object="${editUser}">
     <select th:field="*{id}">
         <!--/*@thymesVar id="user" type="pl.ines.shipcompany.model.User"*/-->
         <!--/*@thymesVar id="users" type="java.util.List"*/-->

@@ -6,12 +6,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import pl.ines.shipcompany.model.Product;
 import pl.ines.shipcompany.model.User;
 import pl.ines.shipcompany.repository.ProductRepository;
 import pl.ines.shipcompany.repository.UserRepository;
 import pl.ines.shipcompany.service.ProductService;
 import pl.ines.shipcompany.service.UserService;
+
+import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class HomeController {
@@ -20,6 +24,8 @@ public class HomeController {
     private UserRepository userRepository;
     private UserService userService;
     private ProductService productService;
+    private List<Product> products;
+    private List<User> users;
 
     @Autowired
     public HomeController(ProductRepository productRepository, UserRepository userRepository, UserService userService, ProductService productService) {
@@ -27,6 +33,8 @@ public class HomeController {
         this.userRepository = userRepository;
         this.userService = userService;
         this.productService = productService;
+        products=productRepository.findAll();
+        users=userRepository.findAll();
     }
 
     @GetMapping("/login")
@@ -41,30 +49,31 @@ public class HomeController {
 
 
     @GetMapping("/")
-    public String home(Model model){
+    public String home(Model model, Principal principal){
         //productRepository.findAll();
-        model.addAttribute("products",productRepository.findAll());
+        model.addAttribute("products",products);
+        model.addAttribute("actualUser",principal.getName());
         return "homePage";
     }
 
     @GetMapping("/newproduct")
         public String newProductMethod(Model model1){
-        userRepository.findAll();
-        model1.addAttribute("users", userRepository.findAll());
+        users=userRepository.findAll();
+        model1.addAttribute("users", users);
         model1.addAttribute("newProduct",new Product());
         return "/newproduct";
     }
 
     @GetMapping("/edituser")
     public String editUser(Model model){
-        model.addAttribute("users",userRepository.findAll());
+        model.addAttribute("users",users);
         model.addAttribute("editUser",new User());
         return "/edituser";
     }
 
     @GetMapping("/deleteuser")
     public String deleteUser(Model model){
-    model.addAttribute("users",userRepository.findAll());
+    model.addAttribute("users",users);
         return "/deleteuser";
     }
     @PostMapping("/deletinguser")
@@ -73,7 +82,7 @@ public class HomeController {
         if(userRepository.existsById(index)){
             if(user.getProducts().isEmpty()){
                 userRepository.deleteById(index);
-                userRepository.findAll();
+                users=userRepository.findAll();
                 return "redirect:/";
             }
             else{
@@ -100,12 +109,14 @@ public class HomeController {
     @PostMapping("/adding")
     public String formMethod(Product product){
         productRepository.save(product);
+        products=productRepository.findAll();
     return "redirect:/";
     }
 
     @PostMapping("/addingUser")
     public String addingUser(User user){
-        userRepository.save(user);
+        userService.saveUser(user);
+        users=userRepository.findAll();
         return "redirect:/";
     }
 
@@ -113,11 +124,13 @@ public class HomeController {
     public String deletingMethod(@RequestParam Long index){
         System.out.println(index.toString());
         productRepository.deleteById(index);
+        products=productRepository.findAll();
         return "redirect:/";
     }
 
     @PostMapping("/deletion")
     public String deletionMethod(@RequestParam String indexOfProd, Model model){
+        System.out.println(indexOfProd);
         model.addAttribute("indexOfProd",indexOfProd);
         return "/deletion";
     }
@@ -135,25 +148,26 @@ public class HomeController {
     }
     @PostMapping("/showAll")
     public String showAll(){
+        products=productRepository.findAll();
         return "redirect:/";
     }
 
     @PostMapping("/sorting")
     public String sortingMethod(@RequestParam String option){
         switch (option){
-            case "0": productRepository.orderById();
+            case "0": products=productRepository.orderById();
                 break;
-            case "1": productRepository.orderByThickness();
+            case "1": products=productRepository.orderByThickness();
                 break;
-            case "2": productRepository.orderByWidth();
+            case "2": products=productRepository.orderByWidth();
                 break;
-            case "3": productRepository.orderByLength();
+            case "3": products=productRepository.orderByLength();
                 break;
-            case "4": productRepository.orderByQuantity();
+            case "4": products=productRepository.orderByQuantity();
                 break;
-            case "5": productRepository.orderByGrade();
+            case "5": products=productRepository.orderByGrade();
                 break;
-            case "6": productRepository.orderByTolerance();
+            case "6": products=productRepository.orderByTolerance();
                 break;
         }
         return "redirect:/";
@@ -164,13 +178,13 @@ public class HomeController {
 
         int value=Integer.parseInt(border);
         switch (radio){
-            case "1": productRepository.getProductsWhereThicknessIs(value);
+            case "1": products=productRepository.getProductsWhereThicknessIs(value);
                 break;
-            case "2": productRepository.getProductsWhereWidthIs(value);
+            case "2": products=productRepository.getProductsWhereWidthIs(value);
                 break;
-            case "3": productRepository.getProductsWhereLengthIs(value);
+            case "3": products=productRepository.getProductsWhereLengthIs(value);
                 break;
-            case "4": productRepository.getProductsWhereQuantityIs(value);
+            case "4": products=productRepository.getProductsWhereQuantityIs(value);
                 break;
         }
         return "redirect:/";

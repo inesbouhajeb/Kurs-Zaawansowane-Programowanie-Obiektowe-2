@@ -13,11 +13,13 @@
 <form  th:action="@{/addingUser}" th:object="${newUser}" method="post" >
     <input type="text" th:field="*{firstname}" placeholder="Imię" required><br>
     <input type="text" th:field="*{lastname}" placeholder="Nazwisko" required><br>
+    <input type="text" th:field="*{username}" placeholder="Nazwa użytkownika" required><br>
+    <input type="text" th:field="*{password}" placeholder="Hasło" required><br>
     <ul></ul>
     <button type="submit" class="btn btn-primary">Zapisz</button>
 </form>
 <ul></ul>
-<form action="/">
+<form th:action="@{/}">
     <button type="submit" class="btn btn-primary" >Wróć</button>
 </form>
 </div>

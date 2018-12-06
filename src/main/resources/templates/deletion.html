@@ -8,7 +8,7 @@
 <body>
 <h2>Czy na pewno chcesz usunąć produkt?</h2>
 <h5 style="color: red">Ponowne jego odzyskanie nie będzie możliwe!</h5>
-<form action="/deleting" method="post" >
+<form th:action="@{/deleting}" method="post" >
     <input type="submit" class="btn btn-primary" value="Tak">
 
     <!--/*@thymesVar id="indexOfProd" type="String"*/-->

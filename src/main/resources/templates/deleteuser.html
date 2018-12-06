@@ -7,7 +7,7 @@
 <body>
 <h1>Podaj ID użytkownika, aby usunąć go z bazy:</h1>
 
-<form action="/deletinguser" style="margin-left: 10px" method="post">
+<form th:action="@{/deletinguser}" style="margin-left: 10px" method="post">
 <input type="number" required name="index">
     <button type="submit" class="btn btn-primary" >Usuń</button>
 </form>

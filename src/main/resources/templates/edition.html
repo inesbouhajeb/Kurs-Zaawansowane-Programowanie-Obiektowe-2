@@ -9,7 +9,7 @@
 <h2>Edytowanie produktu</h2>
 
 <!--/*@thymesVar id="editProduct" type="pl.ines.shipcompany.model.Product"*/-->
-<form action="/editing" method="post" th:object="${editProduct}" style="margin: auto; width: 300px" >
+<form th:action="@{/editing}" method="post" th:object="${editProduct}" style="margin: auto; width: 300px" >
     <input type="hidden" th:field="*{id}"> <!--bez tego id sie nie przekazywalo-->
     <label>Grubość: </label>
     <input type="number" th:field="*{thickness}" /> <br>
