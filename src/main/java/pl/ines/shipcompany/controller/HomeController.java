@@ -29,6 +29,16 @@ public class HomeController {
         this.productService = productService;
     }
 
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(){
+        return "login";
+    }
+
 
     @GetMapping("/")
     public String home(Model model){

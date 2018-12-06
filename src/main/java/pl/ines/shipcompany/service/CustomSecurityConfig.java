@@ -14,15 +14,21 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         //super.configure(http);
         http.authorizeRequests()
+                .antMatchers("/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .httpBasic();
+                .formLogin()
+                .loginPage("/login")
+//                .formLogin()
+                .and()
+                .csrf().disable();
+
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //super.configure(auth);
-        UserDetails user = User.withUsername("user2").password("{noop}pass2").roles("USER").build();
-        auth.inMemoryAuthentication().withUser(user);
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        //super.configure(auth);
+//        UserDetails user=User.withUsername("user2").password("pass2").roles("USER").build();
+//        auth.inMemoryAuthentication().withUser(user);
+//    }
 }

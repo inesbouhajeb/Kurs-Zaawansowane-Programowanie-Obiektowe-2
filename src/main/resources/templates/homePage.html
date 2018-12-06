@@ -29,7 +29,9 @@
         <ul>
             <li><span>Zalogowano jako:</span></li>
             <li><span><strong>Ines Bouhajeb</strong> </span><li>
-            <li><a href="#"><span>Wyloguj</span></a></li>
+            <li>
+                <a href="logout"><span>Wyloguj</span></a>
+        </li>
         </ul>
     </nav>
 </header>
@@ -69,11 +71,11 @@
                         <input type="radio" name="radio" value="4"> ilości<br>
                         <span><strong>Wartość parametru: </strong></span>
                         <input style="margin-bottom: 5px; width: 160px" name="border" type="number" required><br>
-    <button type="submit" class="btn btn-secondary" name="searchBtn" style="margin-bottom: 5px">Filtruj</button>
-</form>
-    <form action="/showAll" method="post" >
-        <button type="submit" class="btn btn-secondary">Wyczyść filtry</button> <br>
-    </form>
+                        <button type="submit" class="btn btn-secondary" name="searchBtn" style="margin-bottom: 5px">Filtruj</button>
+                    </form>
+                    <form action="/showAll" method="post" >
+                        <button type="submit" class="btn btn-secondary">Wyczyść filtry</button> <br>
+                    </form>
                 </section>
             </div>
             <div class="col-md-10">
