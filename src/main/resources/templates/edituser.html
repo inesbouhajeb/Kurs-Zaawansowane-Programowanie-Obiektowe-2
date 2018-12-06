@@ -1,10 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
+    <title>Edycja użytkownika</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"></head>
 <body>
-$END$
+<h1>Edycja użytkownika</h1>
+Wybierz użytkownika do edycji: <br>
+
+
+
+<form action="/editinguser" method="post" th:object="${editUser}">
+    <select th:field="*{id}">
+        <!--/*@thymesVar id="user" type="pl.ines.shipcompany.model.User"*/-->
+        <!--/*@thymesVar id="users" type="java.util.List"*/-->
+        <option th:each="user: ${users}" th:text="${user.firstname+ user.lastname}" th:value="${user.id}">1</option>
+    </select><br>
+    <ul></ul>
+    Podaj nowe dane:<br>
+    <label>Imie: </label>
+    <input type="text" th:field="*{firstname}" required /> <br>
+    <label>Nazwisko: </label>
+    <input type="text"  th:field="*{lastname}" required/> <br>
+    <ul></ul>
+    <button type="submit" class="btn btn-primary">Akceptuj</button>
+</form>
 </body>
 </html>
