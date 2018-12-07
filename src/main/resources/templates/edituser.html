@@ -3,27 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Edycja użytkownika</title>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"></head>
+    <link rel="stylesheet" th:href="@{/css/loginCSS.css}"
+          href="../static/css/loginCSS.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Dosis|Montserrat" rel="stylesheet">
 <body>
-<h1>Edycja użytkownika</h1>
-Wybierz użytkownika do edycji: <br>
+<h1 style="font-family: 'Dosis', sans-serif">EDYCJA UŻYTKOWNIKA</h1>
+<div align="center">
+    <span style="font-family: 'Roboto', sans-serif; font-size: 25px;font-weight: lighter"><strong> Wybierz użytkownika do edycji:</strong></span>
 
 
-
-<form th:action="@{/editinguser}" method="post" th:object="${editUser}">
+<form style="font-family: 'Roboto', sans-serif" class="login-form" th:action="@{/editinguser}" method="post" th:object="${editUser}">
     <select th:field="*{id}">
         <!--/*@thymesVar id="user" type="pl.ines.shipcompany.model.User"*/-->
         <!--/*@thymesVar id="users" type="java.util.List"*/-->
         <option th:each="user: ${users}" th:text="${user.firstname+ user.lastname}" th:value="${user.id}">1</option>
     </select><br>
-    <ul></ul>
-    Podaj nowe dane:<br>
-    <label>Imie: </label>
-    <input type="text" th:field="*{firstname}" required /> <br>
-    <label>Nazwisko: </label>
-    <input type="text"  th:field="*{lastname}" required/> <br>
-    <ul></ul>
-    <button type="submit" class="btn btn-primary">Akceptuj</button>
+    <span  style="font-family: 'Roboto', sans-serif; font-size: 25px;font-weight: lighter"><strong>Podaj nowe dane wybranego użytkownika:</strong></span><br>
+    <input type="text" placeholder="Imie" th:field="*{firstname}" required /> <br>
+    <input type="text" placeholder="Nazwisko" th:field="*{lastname}" required/> <br>
+    <input type="text" placeholder="Nowe hasło" th:field="*{password}" required/> <br>
+    <button style="margin: 5px" type="submit" class="btn btn-secondary">Akceptuj</button>
 </form>
+</div>
 </body>
 </html>

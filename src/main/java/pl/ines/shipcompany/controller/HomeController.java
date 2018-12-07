@@ -6,12 +6,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import pl.ines.shipcompany.model.Product;
 import pl.ines.shipcompany.model.User;
+import pl.ines.shipcompany.model.UserRole;
 import pl.ines.shipcompany.repository.ProductRepository;
 import pl.ines.shipcompany.repository.UserRepository;
+import pl.ines.shipcompany.repository.UserRoleRepository;
 import pl.ines.shipcompany.service.ProductService;
+import pl.ines.shipcompany.service.UserRoleService;
 import pl.ines.shipcompany.service.UserService;
 
 import java.security.Principal;
@@ -22,16 +24,20 @@ public class HomeController {
 
     private ProductRepository productRepository;
     private UserRepository userRepository;
+    private UserRoleRepository userRoleRepository;
     private UserService userService;
+    private UserRoleService userRoleService;
     private ProductService productService;
     private List<Product> products;
     private List<User> users;
 
     @Autowired
-    public HomeController(ProductRepository productRepository, UserRepository userRepository, UserService userService, ProductService productService) {
+    public HomeController(ProductRepository productRepository, UserRepository userRepository, UserRoleRepository userRoleRepository, UserService userService, UserRoleService userRoleService, ProductService productService) {
         this.productRepository = productRepository;
         this.userRepository = userRepository;
+        this.userRoleRepository = userRoleRepository;
         this.userService = userService;
+        this.userRoleService = userRoleService;
         this.productService = productService;
         products=productRepository.findAll();
         users=userRepository.findAll();
@@ -96,7 +102,7 @@ public class HomeController {
 
     @PostMapping("/editinguser")
     public String editingUser(User user){
-        userService.update(user.getFirstname(),user.getLastname(),user.getId());
+        userService.update(user);
         return "redirect:/";
     }
 
@@ -107,11 +113,16 @@ public class HomeController {
     }
 
     @PostMapping("/adding")
-    public String formMethod(Product product){
+    public String formMethod(Product product, Principal principal){
+        UserRole princUserRole=userRoleRepository.findUserByUsername(principal.getName());
+        Long id=princUserRole.getId();
+        User princUser=userRepository.findUserById(id);
+        product.setUser(princUser);
         productRepository.save(product);
         products=productRepository.findAll();
     return "redirect:/";
     }
+
 
     @PostMapping("/addingUser")
     public String addingUser(User user){
@@ -149,6 +160,17 @@ public class HomeController {
     @PostMapping("/showAll")
     public String showAll(){
         products=productRepository.findAll();
+        return "redirect:/";
+    }
+
+   @GetMapping("/changePassword")
+    public String passwordChange() {
+        return "/changePassword";
+    }
+
+    @PostMapping("/changePassword")
+    public String changingPassword(@RequestParam String password,Principal principal){
+        userRoleService.updatePassword(password,principal.getName());
         return "redirect:/";
     }
 

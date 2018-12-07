@@ -22,11 +22,12 @@ public class UserService {
     }
 
     @Transactional
-    public void update(String firstName, String lastName, Long id){
-    Optional<User> byId=userRepository.findById(id);
-    User user=byId.get();
-    user.setFirstname(firstName);
-    user.setLastname(lastName);
+    public void update(User user){
+    Optional<User> byId=userRepository.findById(user.getId());
+    User editedUser=byId.get();
+        editedUser.setFirstname(user.getFirstname());
+        editedUser.setLastname(user.getLastname());
+        editedUser.setPassword(user.getPassword());
     }
 
 

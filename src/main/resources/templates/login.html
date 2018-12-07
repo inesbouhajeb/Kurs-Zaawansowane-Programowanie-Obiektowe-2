@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Logowanie</title>
+    <link rel="stylesheet" th:href="@{/css/loginCSS.css}"
+          href="../static/css/loginCSS.css" />
+    <link href="https://fonts.googleapis.com/css?family=Dosis|Montserrat" rel="stylesheet">
 </head>
 <body>
-<div style="width: 500px; margin: auto; margin-top: 300px; text-align:center">
-    <h1>LOGOWANIE</h1>
-    <form th:action="@{/login}" method="post">
-        Login:<br/>
-        <input type="text" name="username"/><br/>
-        Hasło:<br/>
-        <input type="password" name="password"/><br/>
-        <input type="submit" value="Zaloguj"/>
-    </form></div>
-
+<div class="login-page">
+    <h1 style="font-family: 'Dosis', sans-serif">LOGOWANIE</h1>
+    <div class="form">
+        <form class="login-form" th:action="@{/login}" method="post" style="font-family: 'Roboto', sans-serif">
+            <input type="text" placeholder="nazwa użytkownika" name="username"/><br/>
+            <input type="password" placeholder="hasło" name="password"/><br/>
+            <button type="submit" value=>Zaloguj</button>
+        </form>
+    </div>
+</div>
 </body>
 </html>
