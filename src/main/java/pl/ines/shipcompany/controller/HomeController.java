@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import pl.ines.shipcompany.model.Product;
 import pl.ines.shipcompany.model.User;
 import pl.ines.shipcompany.model.UserRole;
@@ -72,9 +73,8 @@ public class HomeController {
 
     @GetMapping("/edituser")
     public String editUser(Model model){
-        model.addAttribute("users",users);
-        model.addAttribute("editUser",new User());
-        return "/edituser";
+    model.addAttribute("users",users);
+    return "/edituser";
     }
 
     @GetMapping("/deleteuser")
@@ -118,6 +118,7 @@ public class HomeController {
         Long id=princUserRole.getId();
         User princUser=userRepository.findUserById(id);
         product.setUser(princUser);
+        System.out.println(princUserRole.getRole());
         productRepository.save(product);
         products=productRepository.findAll();
     return "redirect:/";
@@ -133,7 +134,6 @@ public class HomeController {
 
     @PostMapping("/deleting")
     public String deletingMethod(@RequestParam Long index){
-        System.out.println(index.toString());
         productRepository.deleteById(index);
         products=productRepository.findAll();
         return "redirect:/";
