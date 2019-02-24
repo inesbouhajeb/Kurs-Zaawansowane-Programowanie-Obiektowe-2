@@ -8,9 +8,19 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private String firstName;
-    private String lastName;
+    private Long id;
+    private String firstname;
+    private String lastname;
+    @OneToMany(mappedBy = "user")
+    private List<Product> products;
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 
     public Long getId() {
         return id;
@@ -20,19 +30,37 @@ public class User {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", products=" + products +
+                '}';
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+
+    public User() {
     }
 }

@@ -8,7 +8,8 @@
 <body>
 <h1>Dodawanie nowego produktu</h1>
 
-<form action="/adding" method="post" th:object="${newProduct}" style="margin: auto; width: 300px" >
+<!--/*@thymesVar id="newProduct" type="pl.ines.shipcompany.model.Product"*/-->
+<form th:action="@{/adding}" method="post" th:object="${newProduct}" style="margin: auto; width: 300px" >
     <label>Grubość: </label>
     <input type="number" th:field="*{thickness}"/> <br>
     <label>Szerokość: </label>
@@ -21,6 +22,11 @@
     <input type="text" th:field="*{grade}"/> <br>
     <label>Tolerancja: </label>
     <input type="text" th:field="*{tolerance}"/> <br>
+    <select th:field="*{user}">
+        <!--/*@thymesVar id="user" type="pl.ines.shipcompany.model.User"*/-->
+        <!--/*@thymesVar id="users" type="java.util.List"*/-->
+        <option th:each="user: ${users}" th:text="${user.firstname+ user.lastname}" th:value="${user.id}">1</option>
+    </select><br>
     <ul></ul>
     <button type="submit" class="btn btn-primary">Dodaj</button>
 </form>

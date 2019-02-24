@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj nowego pracownika</title>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+<h1>Dodawanie nowego użytkownika</h1>
+<ul></ul>
+<div align="center">
+<!--/*@thymesVar id="newUser" type="pl.ines.shipcompany.model.User"*/-->
+<form  th:action="@{/addingUser}" th:object="${newUser}" method="post" >
+    <input type="text" th:field="*{firstname}" placeholder="Imię" required><br>
+    <input type="text" th:field="*{lastname}" placeholder="Nazwisko" required><br>
+    <ul></ul>
+    <button type="submit" class="btn btn-primary">Zapisz</button>
+</form>
+<ul></ul>
+<form action="/">
+    <button type="submit" class="btn btn-primary" >Wróć</button>
+</form>
+</div>
+</body>
+</html>

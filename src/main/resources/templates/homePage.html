@@ -1,85 +1,124 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:margin="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:margin="http://www.w3.org/1999/xhtml"
+      xmlns:mvc="http://www.w3.org/1999/xlink">
 <head>
     <meta charset="UTF-8">
     <title>Główna</title>
+    <link th:href="@{resources/static/css/styles.css}" rel="stylesheet" type="text/css" media="screen">
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
+    <link th:href="@{resources/static/css/grid.css}" rel="stylesheet" type="text/css"  media="screen">
+    <link rel="stylesheet" href="css/grid.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Dosis|Montserrat" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 <body>
-<h1 style="margin-left: 10px">Baza danych materiałów</h1>
-<h2 style="margin-left: 10px">Blachy stalowe</h2>
-<div class="container-fluid" style="background-color: bisque">
-<form action="/sorting" method="post" style="margin-left: 10px">
-    <h6>Sortowanie wyników</h6>
-Wybierz kategorię sortowania:
-    <input type="radio" value="0" name="option"> ID,
-    <input type="radio" value="1" name="option"> grubości,
-    <input type="radio" value="2" name="option"> szerokości,
-    <input type="radio" value="3" name="option"> długości,
-    <input type="radio" value="4" name="option"> ilości,
-    <input type="radio" value="5" name="option"> gatunku,
-    <input type="radio" value="6" name="option"> tolerancji<br>
-    <button type="submit" class="btn btn-primary">Sortuj</button> <br>
-</form>
-    </div>
-<ul></ul>
-<div class="container-fluid" style="background-color: bisque">
-<form action="/filtering" method="post" style="margin-left: 10px">
-    <h6>Filtrowanie wyników</h6>
-    Wybierz wymagany parametr blachy:
-    <input type="radio" name="radio" value="1">grubość,
-    <input type="radio" name="radio" value="2">szerokość,
-    <input type="radio" name="radio" value="3"> długość,
-    <input type="radio" name="radio" value="4">ilość <br>
-    Wartość parametru: <input name="border" type="number" style="width: 50px"> <br>
-    <ul></ul>
-    <button type="submit" class="btn btn-primary" name="searchBtn">Szukaj</button> <br>
-</form>
-</div>
-<ul></ul>
+<header>
+    <nav class="nav">
+        <div class="dropdown">
+        <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Opcje użytkowników</button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="newuser">Dodaj nowego użytkownika</a>
+            <a class="dropdown-item" href="edituser">Edytuj użytkownika</a>
+            <a class="dropdown-item" href="deleteuser">Usuń użytkownika</a>
+        </div>
+        </div>
+        <ul>
+            <li><span>Zalogowano jako:</span></li>
+            <li><span><strong>Ines Bouhajeb</strong> </span><li>
+            <li><a href="#"><span>Wyloguj</span></a></li>
+        </ul>
+    </nav>
+</header>
+<section class="ship_container">
+    <h1>ShipCompany Sp z o. o.</h1>
+</section>
+<div class="container">
+        <div class="row" id="row1">
 
-<form style="margin-left: 10px" action="/showAll" method="post">
-    <button type="submit" class="btn btn-primary">Wyczyść filtry</button> <br></form>
-<ul></ul>
-<table class="table table-bordered" style="margin-left: 10px">
-    <thead>
-    <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Grubość [mm]</th>
-        <th scope="col">Szerokość [mm]</th>
-        <th scope="col">Długość [mm]</th>
-        <th scope="col">Ilość [szt.]</th>
-        <th scope="col">Gatunek</th>
-        <th scope="col">Tolerancja</th>
-        <th scope="col">Akcja</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr  th:each="product:${products}">
-        <td th:text="${product.id}"></td>
-        <td th:text="${product.thickness}"></td>
-        <td th:text="${product.width}"></td>
-        <td th:text="${product.length}"></td>
-        <td th:text="${product.quantity}"></td>
-        <td th:text="${product.grade}"></td>
-        <td th:text="${product.tolerance}"></td>
-        <td>
-            <form action="/deletion" method="post" >
-                <input class="form-control"
-                type="hidden"
-                 th:value="${product.id}" id="indexOfProd" name="indexOfProd" /> <!--!!!-->
-             <input type="submit" value="Usuń">
+            <h3>Stan magazynowy blach stalowych</h3>
+            <form id="new_prod_form" action="/newproduct">
+                <button type="submit" class="btn btn-secondary" >Dodaj nowy produkt</button>
             </form>
-            <form action="/edition" method="post">
-                <input class="form-control" type="hidden" th:value="${product.id}" name="productID">
-                <button type="submit">Edytuj</button>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<form action="/newproduct" style="margin-left: 10px">
-    <button type="submit" class="btn btn-primary" >Dodaj nowy produkt</button>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <section id="sort_products">
+                    <span><strong>Sortuj wedłu:</strong> </span>
+                    <form action="/sorting" method="post">
+                        <input type="radio" value="0" name="option" checked> ID <br>
+                        <input type="radio" value="1" name="option"> grubość<br>
+                        <input type="radio" value="2" name="option"> szerokość<br>
+                        <input type="radio" value="3" name="option"> długość<br>
+                        <input type="radio" value="4" name="option"> ilość<br>
+                        <input type="radio" value="5" name="option"> gatunek<br>
+                        <input type="radio" value="6" name="option"> tolerancja<br>
+                        <button type="submit" class="btn btn-secondary">Sortuj</button> <br>
+                    </form>
+                    <ul></ul>
+                </section>
+                <section id="filtr_products">
+                    <form action="/filtering" method="post">
+                        <span><strong>Filtruj po parametrze:</strong></span><br>
+                        <input type="radio" name="radio" value="1" checked> grubości<br>
+                        <input type="radio" name="radio" value="2"> szerokości<br>
+                        <input type="radio" name="radio" value="3"> długości<br>
+                        <input type="radio" name="radio" value="4"> ilości<br>
+                        <span><strong>Wartość parametru: </strong></span>
+                        <input style="margin-bottom: 5px; width: 160px" name="border" type="number" required><br>
+    <button type="submit" class="btn btn-secondary" name="searchBtn" style="margin-bottom: 5px">Filtruj</button>
 </form>
+    <form action="/showAll" method="post" >
+        <button type="submit" class="btn btn-secondary">Wyczyść filtry</button> <br>
+    </form>
+                </section>
+            </div>
+            <div class="col-md-10">
+            <table class="table table-bordered" align="center">
+                <thead>
+                <tr>
+                 <th scope="col">ID</th>
+                    <th scope="col">Grubość [mm]</th>
+                    <th scope="col">Szerokość [mm]</th>
+                    <th scope="col">Długość [mm]</th>
+                    <th scope="col">Ilość [szt.]</th>
+                    <th scope="col">Gatunek</th>
+                    <th scope="col">Tolerancja</th>
+                    <th scope="col">ID pracownika</th>
+                    <th scope="col">Akcja</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr  th:each="product:${products}">
+                        <td th:text="${product.id}"></td>
+                        <td th:text="${product.thickness}"></td>
+                        <td th:text="${product.width}"></td>
+                        <td th:text="${product.length}"></td>
+                        <td th:text="${product.quantity}"></td>
+                        <td th:text="${product.grade}"></td>
+                        <td th:text="${product.tolerance}"></td>
+                        <td th:text="${product.user.getId()}"></td>
+                        <td>
+                            <form action="/deletion" method="post" >
+                                <input class="form-control" type="hidden" th:value="${product.id}" id="indexOfProd" name="indexOfProd" />
+                                <button style="margin-bottom: 4px" type="submit" class="btn btn-secondary">Usuń</button>
+                            </form>
+                            <form action="/edition" method="post">
+                                <input class="form-control" type="hidden" th:value="${product.id}" name="productID">
+                                <button type="submit" class="btn btn-secondary">Edytuj</button>
+                             </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+</div>
+<footer>
+    <p>Copyright © 2018 Ines Bouhajeb. <br> All rights reserved.</p>
+</footer>
 </body>
 </html>

@@ -14,18 +14,19 @@ public class Product {
     private int quantity;
     private String grade;
     private String tolerance;
+    @ManyToOne
+    private User user;
 
     public Product() {
     }
 
-//    public Product(int thickness, int width, int length, int quantity, String grade, String tolerance) {
-//        this.thickness = thickness;
-//        this.width = width;
-//        this.length = length;
-//        this.quantity = quantity;
-//        this.grade = grade;
-//        this.tolerance = tolerance;
-//    }
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public int getThickness() {
         return thickness;
