@@ -7,6 +7,7 @@ import pl.ines.shipcompany.model.UserRole;
 import pl.ines.shipcompany.repository.UserRepository;
 import pl.ines.shipcompany.repository.UserRoleRepository;
 
+import java.security.Principal;
 import java.util.Optional;
 
 @Service
@@ -27,7 +28,15 @@ public class UserService {
     User editedUser=byId.get();
         editedUser.setFirstname(user.getFirstname());
         editedUser.setLastname(user.getLastname());
-        editedUser.setPassword(user.getPassword());
+        //editedUser.setPassword(user.getPassword());
+    }
+
+    @Transactional
+    public void updatePassword(String password, Principal principal){
+        UserRole princUserRole=userRoleRepository.findUserByUsername(principal.getName());
+        Long id=princUserRole.getId();
+        User princUser=userRepository.findUserById(id);
+        princUser.setPassword("{noop}"+password);
     }
 
 

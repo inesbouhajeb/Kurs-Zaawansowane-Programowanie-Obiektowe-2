@@ -11,6 +11,13 @@ public class UserRole {
     private Long id;
     private String username;
     private String role;
+   //@OneToOne
+   // private User user2;
+
+
+
+    public UserRole() {
+    }
 
     public Long getId() {
         return id;

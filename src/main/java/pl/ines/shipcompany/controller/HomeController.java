@@ -71,10 +71,17 @@ public class HomeController {
         return "/newproduct";
     }
 
+//    @GetMapping("/edituser")
+//    public String editUser(Model model){
+//    model.addAttribute("users",users);
+//    return "edituser";
+//    }
+
     @GetMapping("/edituser")
     public String editUser(Model model){
-    model.addAttribute("users",users);
-    return "/edituser";
+        model.addAttribute("users",users);
+        model.addAttribute("editUser",new User());
+        return "/edituser";
     }
 
     @GetMapping("/deleteuser")
@@ -118,7 +125,6 @@ public class HomeController {
         Long id=princUserRole.getId();
         User princUser=userRepository.findUserById(id);
         product.setUser(princUser);
-        System.out.println(princUserRole.getRole());
         productRepository.save(product);
         products=productRepository.findAll();
     return "redirect:/";
@@ -149,6 +155,7 @@ public class HomeController {
     @PostMapping("/editing")
     public String editionMethod(Product product){
         productService.update(product.getId(),product.getThickness(),product.getWidth(),product.getLength(),product.getQuantity(),product.getGrade(),product.getTolerance());
+        products=productRepository.findAll();
         return "redirect:/";
     }
 
@@ -170,7 +177,8 @@ public class HomeController {
 
     @PostMapping("/changePassword")
     public String changingPassword(@RequestParam String password,Principal principal){
-        userRoleService.updatePassword(password,principal.getName());
+        userService.updatePassword(password,principal);
+       // userRoleService.updatePassword(password,principal.getName());
         return "redirect:/";
     }
 

@@ -16,8 +16,16 @@ public class User {
     private boolean enabled;
     @OneToMany(mappedBy = "user")
     private List<Product> products;
-    @OneToOne
+    @OneToOne//(mappedBy = "user2")
     private UserRole userRole;
+
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
 
     public List<Product> getProducts() {
         return products;

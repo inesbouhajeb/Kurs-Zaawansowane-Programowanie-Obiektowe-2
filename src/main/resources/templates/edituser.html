@@ -11,8 +11,6 @@
 <h1 style="font-family: 'Dosis', sans-serif">EDYCJA UŻYTKOWNIKA</h1>
 <div align="center">
     <span style="font-family: 'Roboto', sans-serif; font-size: 25px;font-weight: lighter"><strong> Wybierz użytkownika do edycji:</strong></span>
-
-
 <form style="font-family: 'Roboto', sans-serif" class="login-form" th:action="@{/editinguser}" method="post" th:object="${editUser}">
     <select th:field="*{id}">
         <!--/*@thymesVar id="user" type="pl.ines.shipcompany.model.User"*/-->
@@ -22,7 +20,6 @@
     <span  style="font-family: 'Roboto', sans-serif; font-size: 25px;font-weight: lighter"><strong>Podaj nowe dane wybranego użytkownika:</strong></span><br>
     <input type="text" placeholder="Imie" th:field="*{firstname}" required /> <br>
     <input type="text" placeholder="Nazwisko" th:field="*{lastname}" required/> <br>
-    <input type="text" placeholder="Nowe hasło" th:field="*{password}" required/> <br>
     <button style="margin: 5px" type="submit" class="btn btn-secondary">Akceptuj</button>
 </form>
 </div>
